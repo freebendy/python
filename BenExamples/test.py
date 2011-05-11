@@ -32,7 +32,7 @@ print "arguments' length:",len(sys.argv)
 for arg in sys.argv:
     print arg
 
-'''
+
 #换行字符串
 s="""
 dsadd
@@ -61,17 +61,16 @@ print 3**4
 print pow(3,4)
 
 #每个值或变量都有一个唯一id，id值与变量或值在内存中的位置相关。变量的id也就是它所指向值的id。
-print id(111)
-print id("111")
-print id("dsad")
+print '111.id =',id(111)
+print '"111".id =',id("111")
+print '"dsad".id =',id("dsad")
 
-def add(p1,p2):
-    result = p1 + p2
-    print "result: ",result
-    return result
-
+# 导入module的方式
+# 1.目录添加到PYTHONPATH环境变量，子目录添加__init__.py文件
+# 2.子目录添加__init__.py文件，如下调用
+from lib.functions import add
 print "add result = ", add(a,b)
-
+'''
 # 参数是按值传递
 def modify(p):
     p = 3
@@ -151,6 +150,7 @@ import sys
 print sys.path
 sys.path.append('D:\\Work\\Ben\'s Notes\\Python\\BenExamples\\lib')
 print sys.path
+
 from helloworld import hello
 hello(2)
 
