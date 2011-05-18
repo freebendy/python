@@ -70,7 +70,7 @@ print '"dsad".id =',id("dsad")
 # 2.子目录添加__init__.py文件，如下调用
 from lib.functions import add
 print "add result = ", add(a,b)
-'''
+
 # 参数是按值传递
 def modify(p):
     p = 3
@@ -151,10 +151,10 @@ print sys.path
 sys.path.append('D:\\Work\\Ben\'s Notes\\Python\\BenExamples\\lib')
 print sys.path
 
-from helloworld import hello
+from lib.helloworld import hello
 hello(2)
 
-from helloworld import minus
+from lib.helloworld import minus
 minus()
 
 # 键盘输入
@@ -234,7 +234,7 @@ print list4
 print "#"
 i1=123
 i2=123
-print id(i1),id(i2)
+print id(i1),id(i2) #地址一样
 i2=321
 print id(i1),id(i2)
 
@@ -282,7 +282,7 @@ lc.append(123)
 print la
 
 #列表参数传递：引用传递 ****
-from list import listPop
+from lib.list import listPop
 listToPop=[1,2,3,444]
 listPop(listToPop)
 print "listToPop:",listToPop
@@ -380,7 +380,7 @@ print matrixDict.get((2,3),0) #找不到返回0
 #print sys.argv[0]
 #print os.path.abspath(sys.argv[0])
 
-from path import cur_file_dir
+from lib.path import cur_file_dir
 
 #print cur_file_dir()
 #print file.__doc__ # help()->file
@@ -510,7 +510,12 @@ s.displayInfo()
 from apihelper import info
 #info(dict)
 
-'''
+def foo():
+	l = range(10)
+	l.sort()
+	return l
+import profile
+profile.run('foo()')
         
 '''
 八荣八耻
