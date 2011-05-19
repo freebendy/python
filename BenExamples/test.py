@@ -508,7 +508,7 @@ s=Student("Guan",21,"female",2)
 s.displayInfo()
 
 from apihelper import info
-#info(dict)
+info(dict)
 
 def foo():
     l = range(10)

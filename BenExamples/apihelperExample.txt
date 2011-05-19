@@ -1,0 +1,10 @@
+from apihelper import info
+
+print "dict info:"
+info(dict)
+
+print "\nstr info:"
+info(str)
+
+print "\nint info:"
+info(int)
