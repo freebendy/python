@@ -511,9 +511,9 @@ from apihelper import info
 #info(dict)
 
 def foo():
-	l = range(10)
-	l.sort()
-	return l
+    l = range(10)
+    l.sort()
+    return l
 import profile
 profile.run('foo()')
         
