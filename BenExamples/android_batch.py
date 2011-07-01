@@ -51,6 +51,9 @@ def cloneall():
         
         for i in projectlist:
             #print projectlist
+            # the source code checkout by repo ignored the platform folder, so we do the same here.
+            i = string.replace(i,"platform/","")
+            
             index = string.rfind(i, "/")
             if index != -1:
                 projectdir = i[0:index]
@@ -61,9 +64,13 @@ def cloneall():
                     os.makedirs(dir2create)
                 
                 os.chdir(dir2create)
-                command = "git clone " + prefixurl + i
-                print "In working directory: ", os.getcwd(), "run command:", command
-                os.system( command + " > clone.log")
+                
+            else:
+                os.chdir(currentdir)
+                
+            command = "git clone " + prefixurl + i
+            print "In working directory: ", os.getcwd(), "run command:", command
+            #os.system( command + " > clone.log")
     else:
         print listfilename," is not found, make sure you are in correct working directory! or update the projects list first."
         
@@ -75,6 +82,10 @@ def updateall():
         
         for i in projectlist:
             #print projectlist
+            
+            # the source code checkout by repo ignored the platform folder, so we do the same here.
+            i = string.replace(i,"platform/","")
+                
             index = string.rfind(i, ".git")
             if index != -1:
                 projectdir = i[0:index]
@@ -82,9 +93,12 @@ def updateall():
             
                 if os.path.exists(dir2update):  
                     os.chdir(dir2update)
-                    command = "git pull"
-                    print "In working directory: ", os.getcwd(), "run command:", command
-                    os.system( command + " > pull.log")
+            else:
+                os.chdir(currentdir)
+                
+            command = "git pull"
+            print "In working directory: ", os.getcwd(), "run command:", command
+            #os.system( command + " > pull.log")
     else:
         print listfilename," is not found, make sure you are in correct working directory! or update the projects list first and clone all projects."
         
