@@ -51,6 +51,7 @@ if res.status == httplib.OK:
             command = "git clone " + prefixurl + i
             
             if os.path.exists(os.getcwd()+ "/" + i[index:-4] + "/" + repositorydir):
+                os.chdir(os.getcwd() + "/" + i[index:-4])
                 command = "git pull"
             
             print "In working directory: ", os.getcwd(), "run command:", command
