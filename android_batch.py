@@ -8,6 +8,7 @@ import string
 prefixurl = "https://android.git.kernel.org/" # "git://android.git.kernel.org/" is so easy to lead to time out
 currentdir = os.path.abspath(os.path.dirname(sys.argv[0])) #the dir of the source
 listfilename = "projectlist.txt"
+repositorydir = ".git"
 os.chdir(currentdir) # change the work directory, getcwd()
 
 # get the list of the projects from "android.git.kernel.org"
@@ -41,6 +42,43 @@ def updateprojectlist():
 
     else:
         print "fail to download the page: ",res.status,res.reason
+        
+
+# clone the project if not checked out, update the project if checked out, repository All-Projects.git will fail.    
+def smart():
+    if (os.path.exists(currentdir+"/"+listfilename)):
+        print "cloning all projects"
+        file = open(currentdir+"/"+listfilename,"r")
+        projectlist = file.readlines()
+        
+        for i in projectlist:
+            #print projectlist
+            # the source code checkout by repo ignored the platform folder, so we do the same here.
+            i = string.replace(i,"platform/","")
+            
+            index = string.rfind(i, "/")
+            if index != -1:
+                projectdir = i[0:index]
+                dir2create = currentdir + "/" + projectdir
+            
+                if os.path.exists(dir2create) != True:
+                    #print "makedirs : ", dir2create
+                    os.makedirs(dir2create)
+                
+                os.chdir(dir2create)
+                
+            else:
+                os.chdir(currentdir)
+                  
+            command = "git clone " + prefixurl + i
+            
+            if os.path.exists(os.getcwd()+ "/" + i[index:-4] + "/" + repositorydir)
+                command = "git pull"
+                
+            print "In working directory: ", os.getcwd(), "run command:", command
+            os.system( command )
+    else:
+        print listfilename," is not found, make sure you are in correct working directory! or update the projects list first."
        
 # clone all the projects, repository All-Projects.git will fail.    
 def cloneall():
@@ -70,7 +108,7 @@ def cloneall():
                 
             command = "git clone " + prefixurl + i
             print "In working directory: ", os.getcwd(), "run command:", command
-            os.system( command + " > clone.log")
+            os.system( command )
     else:
         print listfilename," is not found, make sure you are in correct working directory! or update the projects list first."
         
@@ -98,7 +136,7 @@ def updateall():
                 
             command = "git pull"
             print "In working directory: ", os.getcwd(), "run command:", command
-            os.system( command + " > pull.log")
+            os.system( command )
     else:
         print listfilename," is not found, make sure you are in correct working directory! or update the projects list first and clone all projects."
         

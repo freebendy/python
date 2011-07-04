@@ -8,8 +8,6 @@ import string
 prefixurl = "https://android.git.kernel.org/" # "git://android.git.kernel.org/" is so easy to lead to time out
 currentdir = os.path.abspath(os.path.dirname(sys.argv[0])) #the dir of the source
 repositorydir = ".git"
-clonelogfile = "clone.log"
-updatelogfile = "update.log"
 os.chdir(currentdir) # change the work directory, getcwd()
 
 conn = httplib.HTTPConnection("android.git.kernel.org")
@@ -51,14 +49,12 @@ if res.status == httplib.OK:
                 
             os.chdir(dir2create)
             command = "git clone " + prefixurl + i
-            logfile = clonelogfile
             
-            if os.path.exists()
+            if os.path.exists(os.getcwd()+ "/" + i[index:-4] + "/" + repositorydir):
                 command = "git pull"
-                logfile = updatelogfile
             
             print "In working directory: ", os.getcwd(), "run command:", command
-            #os.system( command + " > " + logfile)
+            os.system( command)
         
 else:
     print res.status,res.reason
