@@ -5,7 +5,7 @@ import sys
 import re # 
 import string
 
-prefixurl = "https://android.git.kernel.org/" # "git://android.git.kernel.org/" is so easy to lead to time out
+prefixurl = "http://android.git.kernel.org/" # "git://android.git.kernel.org/" is so easy to lead to time out
 currentdir = os.path.abspath(os.path.dirname(sys.argv[0])) #the dir of the source
 listfilename = "projectlist.txt"
 repositorydir = ".git"
@@ -54,11 +54,11 @@ def smart():
         for i in projectlist:
             #print projectlist
             # the source code checkout by repo ignored the platform folder, so we do the same here.
-            i = string.replace(i,"platform/","")
+            destDir = string.replace(i,"platform/","")
             
-            index = string.rfind(i, "/")
+            index = string.rfind(destDir, "/")
             if index != -1:
-                projectdir = i[0:index]
+                projectdir = destDir[0:index]
                 dir2create = currentdir + "/" + projectdir
             
                 if os.path.exists(dir2create) != True:
@@ -72,8 +72,8 @@ def smart():
                   
             command = "git clone " + prefixurl + i
             
-            if os.path.exists(os.getcwd()+ "/" + i[index:-4] + "/" + repositorydir)
-                os.chdir(os.getcwd() + "/" + i[index:-4])
+            if os.path.exists(os.getcwd()+ "/" + destDir[index:-4] + "/" + repositorydir):
+                os.chdir(os.getcwd() + "/" + destDir[index:-4])
                 command = "git pull"
                 
             print "In working directory: ", os.getcwd(), "run command:", command
@@ -91,11 +91,11 @@ def cloneall():
         for i in projectlist:
             #print projectlist
             # the source code checkout by repo ignored the platform folder, so we do the same here.
-            i = string.replace(i,"platform/","")
+            destDir = string.replace(i,"platform/","")
             
-            index = string.rfind(i, "/")
+            index = string.rfind(destDir, "/")
             if index != -1:
-                projectdir = i[0:index]
+                projectdir = destDir[0:index]
                 dir2create = currentdir + "/" + projectdir
             
                 if os.path.exists(dir2create) != True:
@@ -143,13 +143,15 @@ def updateall():
         
     
 def main():
-    option = raw_input("Slect an option(Any other keys to exit):\n\t1.update the projects list\n\t2.clone all projects\n\t3.update all projects\nYour selection is: ")
+    option = raw_input("Slect an option(Any other keys to exit):\n\t1.update the projects list\n\t2.clone all projects\n\t3.update all projects\n\t4.smart\nYour selection is: ")
     if option == '1':
         updateprojectlist()
     elif option == '2':
         cloneall()
     elif option == '3':
         updateall()
+    elif option == '4':
+        smart()
     else:
         return;
     
